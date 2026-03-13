@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>像素公主的城堡大作战 🏰</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        canvas {
+            transform-origin: center center;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <!-- 游戏画布 -->
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- UI 层 -->
+        <div id="ui-layer">
+            <!-- 主菜单 -->
+            <div id="menu-screen" class="screen active">
+                <h1 class="pixel-title">👸 公主推城堡 👸</h1>
+                <p class="subtitle">像素风格的解压小游戏</p>
+                <button id="start-btn" class="pixel-btn">开始游戏</button>
+                <div class="instructions">
+                    <p>🎮 点击屏幕发射爱心，击倒上方的城堡！</p>
+                </div>
+            </div>
+            
+            <!-- 游戏界面 -->
+            <div id="game-ui" class="screen">
+                <div class="hud">
+                    <div class="stat">
+                        <span class="label">关卡</span>
+                        <span id="level-display">1</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">分数</span>
+                        <span id="score-display">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">弹药</span>
+                        <span id="ammo-display">--</span>
+                    </div>
+                </div>
+                <button id="pause-btn" class="pixel-btn small">暂停</button>
+            </div>
+            
+            <!-- 暂停菜单 -->
+            <div id="pause-screen" class="screen">
+                <h2 class="pixel-title">游戏暂停</h2>
+                <button id="resume-btn" class="pixel-btn">继续游戏</button>
+                <button id="restart-btn" class="pixel-btn">重新开始</button>
+                <button id="menu-btn" class="pixel-btn">返回主菜单</button>
+            </div>
+            
+            <!-- 关卡完成 -->
+            <div id="level-complete-screen" class="screen">
+                <h2 class="pixel-title">✨ 关卡完成！ ✨</h2>
+                <div class="stars" id="star-display">
+                    <span class="star">⭐</span>
+                    <span class="star">⭐</span>
+                    <span class="star">⭐</span>
+                </div>
+                <p class="result-text">得分：<span id="level-score">0</span></p>
+                <p class="result-text" style="font-size: 14px; margin-top: 10px;">关卡：<span id="complete-level">1</span></p>
+                <button id="next-level-btn" class="pixel-btn">下一关 →</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 游戏脚本 -->
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/GameLoop.js"></script>
+    <script src="js/Physics.js"></script>
+    <script src="js/entities/Princess.js"></script>
+    <script src="js/entities/Projectile.js"></script>
+    <script src="js/entities/Block.js"></script>
+    <script src="js/entities/Particle.js"></script>
+    <script src="js/systems/Input.js"></script>
+    <script src="js/systems/Renderer.js"></script>
+    <script src="js/systems/Sound.js"></script>
+    <script src="js/systems/CastleGenerator.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* 游戏容器 */
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 游戏画布 */
+#gameCanvas {
+    display: block;
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* UI 层 */
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* 关键：确保 UI 层不影响 Canvas 显示 */
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* 屏幕界面 */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* 像素风格标题 - 移除重影效果 */
+.pixel-title {
+    font-size: 48px;
+    color: #FFD700;
+    /* 简化阴影，只保留单层右下方向，避免重影 */
+    text-shadow: 3px 3px 0 #8B4513;
+    margin-bottom: 20px;
+    animation: titleBounce 1s infinite alternate;
+    letter-spacing: 4px;
+    /* 确保字体清晰 */
+    -webkit-font-smoothing: none !important;
+}
+
+@keyframes titleBounce {
+    from {
+        transform: translateY(-5px);
+    }
+    to {
+        transform: translateY(5px);
+    }
+}
+
+.subtitle {
+    color: #FFE4C4;
+    font-size: 18px;
+    margin-bottom: 40px;
+    /* 简化阴影 */
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+    -webkit-font-smoothing: none !important;
+}
+
+/* 像素按钮 */
+.pixel-btn {
+    background: linear-gradient(to bottom, #FFB6C1, #FF69B4);
+    border: 4px solid #fff;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px 40px;
+    margin: 10px;
+    cursor: pointer;
+    /* 简化按钮文字阴影 */
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 
+        0 6px 0 #C71585,
+        0 8px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.1s;
+    image-rendering: pixelated;
+    -webkit-font-smoothing: none !important;
+}
+
+.pixel-btn:hover {
+    background: linear-gradient(to bottom, #FFC0CB, #FF7FAB);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 0 #C71585,
+        0 10px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pixel-btn:active {
+    transform: translateY(4px);
+    box-shadow: 
+        0 2px 0 #C71585,
+        0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.pixel-btn.small {
+    font-size: 14px;
+    padding: 8px 20px;
+}
+
+/* 说明文字 */
+.instructions {
+    margin-top: 30px;
+    color: #E0FFFF;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.8;
+    /* 简化阴影 */
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+    -webkit-font-smoothing: none !important;
+}
+
+/* HUD - 游戏界面 */
+#game-ui {
+    justify-content: flex-start;
+    background: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    pointer-events: none;
+}
+
+#game-ui > * {
+    pointer-events: auto;
+}
+
+.hud {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    padding-right: 140px; /* 为暂停按钮留出空间 */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    /* 简化 HUD 文字阴影 */
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    -webkit-font-smoothing: none !important;
+}
+
+.stat .label {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.stat span:last-child {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+#pause-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* 星星显示 */
+.stars {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.star {
+    font-size: 48px;
+    filter: drop-shadow(0 0 10px #FFD700);
+    animation: starPulse 1s infinite alternate;
+}
+
+.star:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.star:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes starPulse {
+    from {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px #FFD700);
+    }
+    to {
+        transform: scale(1.2);
+        filter: drop-shadow(0 0 20px #FFD700);
+    }
+}
+
+.result-text {
+    color: #FFE4C4;
+    font-size: 24px;
+    margin: 20px 0;
+    /* 简化阴影 */
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+    -webkit-font-smoothing: none !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .pixel-title {
+        font-size: 32px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+    }
+    
+    .pixel-btn {
+        font-size: 16px;
+        padding: 12px 30px;
+    }
+    
+    .hud {
+        padding: 10px;
+    }
+    
+    .stat span:last-child {
+        font-size: 18px;
+    }
+}
+
+/* 隐藏状态 */
+.hidden {
+    display: none !important;
+}
+
+/* 加载动画 */
+.loading {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #FFD700;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
